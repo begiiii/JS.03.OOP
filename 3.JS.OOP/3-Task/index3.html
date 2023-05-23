@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+th{
+    color: red;
+    background-color: pink;
+}
+table{
+    border: 1px solid blue;
+    border-collapse: collapse;
+}
+    </style>
+</head>
+<body>
+    <script>
+        /*Задание 3
+Реализовать класс Employee, описывающий работника, и создать массив работников банка.
+Реализовать класс EmpTable для генерации html кода таблицы
+со списком работников банка. Массив работников необходимо
+передавать через конструктор, а получать html код с помощью
+метода getHtml().
+Создать объект класса EmpTable и вывести на экран результат
+работы метода getHtml().*/
+
+
+class Employee{
+    constructor(name,post,salary){
+        this.name = name;
+        this.post = post;
+        this.salary = salary;
+    }
+
+}
+
+class EmpTable{
+    constructor(arr){
+        this.arr = arr;
+    }
+
+    getHtml(){
+        let d = document;
+        let table = d.createElement('table');
+        d.body.appendChild(table);
+        
+
+        //отображаем название свойств класса Employee 
+        for(let i = 0; i < Object.keys(new Employee()).length;i++){
+            let th = d.createElement('th');
+            th.innerHTML = Object.keys(new Employee())[i]; //обращаемся к ключам класса по i индексам
+            table.appendChild(th);
+        }
+
+        for(let i = 0; i < this.arr.length; i++){
+            let tr = d.createElement('tr');
+            table.appendChild(tr);
+            //console.log(this.arr[i]) //- просто проверка
+            for(let j=0; j< Object.keys(new Employee()).length; j++){
+                let td = d.createElement('td');
+                td.innerHTML = this.arr[i][Object.keys(new Employee())[j]];
+                //td.innerHTML = this.arr[i][Object.keys(this.arr[i])[j]]; // и так можно обратиться
+                tr.appendChild(td);
+            }
+        }
+    }
+}
+
+let e1 = new Employee('Andrey','Student', 12000);
+let e2 = new Employee('Aruzhan','Teacher', 112000);
+let e3 = new Employee('Aida','Manager', 150000);
+let e4 = new Employee('Oda','Mangaka', 130000);
+let e5 = new Employee('Araki','Genius', 152000);
+let e6 = new Employee('Ray','Robot', 121000);
+
+let emp1 = new EmpTable([e1,e2,e3,e4,e5,e6]);
+
+emp1.getHtml()
+
+
+    </script>
+</body>
+</html>

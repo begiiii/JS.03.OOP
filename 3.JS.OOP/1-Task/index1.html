@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="p"></p>
+
+    <script>
+
+        /*Задание 1
+Реализовать класс, описывающий простой маркер. В классе
+должны быть следующие компоненты:
+■■ поле, которое хранит цвет маркера;
+■■ поле, которое хранит количество чернил в маркере (в про-
+центах);
+■■ метод для печати (метод принимает строку и выводит
+текст соответствующим цветом; текст выводится до тех
+пор, пока в маркере есть чернила; один не пробельный
+символ – это 0,5% чернил в маркере).
+Реализовать класс, описывающий заправляющийся маркер,
+унаследовав его от простого маркера и добавив метод для заправки
+маркера.
+Продемонстрировать работу написанных методов.*/
+
+class Marker{
+    constructor(color, ink){
+        this.color = color;
+        this.ink = ink;
+    }
+    print(str){
+
+        
+        p.innerHTML = '';
+        p.style.color = `${this.color}`;
+        for(let i = 0; i < str.length; i++){
+            
+            if(this.ink == ' ' && this.ink >= 0.5){
+                p.innerHTML+=str[i];
+            }
+            else if(this.ink >= 0.5){
+                p.innerHTML+=str[i];
+                this.ink-=0.5;
+            }
+            else{
+                break;
+            }
+
+        }
+    }
+
+    showInkAmount(){
+        console.log(this.ink)
+    }
+}
+
+class SuperMarker extends Marker {
+  refill(count) {
+    this.ink += count;
+  }
+}
+
+
+let m1 = new Marker('red', 70);
+console.log(m1);
+m1.showInkAmount();
+m1.print("M1 hello my friend. today i eat buter with eggs and cheess.")
+m1.showInkAmount();
+    
+let sm1 = new SuperMarker('blue', 85);
+sm1.showInkAmount();
+sm1.print("M1 hello my friend. today i eat buter with eggs and cheess.")
+sm1.showInkAmount();
+sm1.refill(50);
+sm1.showInkAmount();    
+    
+    
+    </script>
+</body>
+</html>

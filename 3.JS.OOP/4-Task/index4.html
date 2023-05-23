@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <script>
+        /*Задание 4
+Реализовать класс StyledEmpTable, который наследуется от
+класса EmpTable. Добавить метод getStyles(), который возвращает
+строку со стилями для таблицы в тегах style. Переопределить
+метод getHtml(), который добавляет стили к тому, что возвращает
+метод getHtml() из родительского класса.
+Создать объект класса StyledEmpTable и вывести на экран
+результат работы метода getHtml().*/
+
+
+class Employee{
+    constructor(name,post,salary){
+        this.name = name;
+        this.post = post;
+        this.salary = salary;
+    }
+
+}
+
+class EmpTable{
+    constructor(arr){
+        this.arr = arr;
+    }
+
+    getHtml(){
+        let d = document;
+        let table = d.createElement('table');
+        d.body.appendChild(table);
+        
+        console.log('11111')
+
+        //отображаем название свойств класса Employee 
+        for(let i = 0; i < Object.keys(new Employee()).length;i++){
+            let th = d.createElement('th');
+            th.innerHTML = Object.keys(new Employee())[i]; //обращаемся к ключам класса по i индексам
+            table.appendChild(th);
+        }
+
+        for(let i = 0; i < this.arr.length; i++){
+            let tr = d.createElement('tr');
+            table.appendChild(tr);
+            //console.log(this.arr[i]) //- просто проверка
+            for(let j=0; j< Object.keys(new Employee()).length; j++){
+                let td = d.createElement('td');
+                td.innerHTML = this.arr[i][Object.keys(new Employee())[j]]; //можно так
+                //td.innerHTML = this.arr[i][Object.keys(this.arr[i])[j]];  // и так можно обратиться
+                tr.appendChild(td);
+            }
+        }
+    }
+
+}
+
+
+
+class StyledEmpTable extends EmpTable {
+  getStyles() {
+    return '<style>table { border-collapse: collapse; } th, td { border: 1px solid black; padding: 8px; }</style>';
+  }
+
+  getHtml() {
+    let d = document;
+    let styles = this.getStyles(); // получаем стили
+    d.head.innerHTML = styles; 
+
+    console.log('2222222222222222222')
+    let table = d.createElement('table');
+    d.body.appendChild(table);
+
+    // Отображаем название свойств класса Employee
+    for (let i = 0; i < Object.keys(new Employee()).length; i++) {
+      let th = d.createElement('th');
+      th.innerHTML = Object.keys(new Employee())[i] + '2';
+      table.appendChild(th);
+    }
+
+    for (let i = 0; i < this.arr.length; i++) {
+      let tr = d.createElement('tr');
+      table.appendChild(tr);
+      for (let j = 0; j < Object.keys(new Employee()).length; j++) {
+        let td = d.createElement('td');
+        td.innerHTML = this.arr[i][Object.keys(new Employee())[j]];
+        tr.appendChild(td);
+      }
+    }
+  }
+}
+
+
+
+
+let e1 = new Employee('Andrey','Student', 12000);
+let e2 = new Employee('Aruzhan','Teacher', 112000);
+let e3 = new Employee('Aida','Manager', 150000);
+let e4 = new Employee('Oda','Mangaka', 130000);
+let e5 = new Employee('Araki','Genius', 152000);
+let e6 = new Employee('Ray','Robot', 121000);
+
+let emp1 = new EmpTable([e1,e2,e3,e4,e5,e6]);
+
+emp1.getHtml()
+
+let emp2 = new StyledEmpTable([e1, e2, e3, e4, e5, e6]);
+emp2.getHtml();
+
+
+    </script>
+</body>
+</html>
